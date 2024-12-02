@@ -1,0 +1,46 @@
+CREATE TABLE IF NOT EXISTS user (
+    id_user INT PRIMARY KEY auto_increment UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    photo varchar(255)
+);
+
+CREATE TABLE post (
+    id_post BIGINT auto_increment UNIQUE NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    image VARCHAR(255),
+    content TEXT NOT NULL,
+    user_id INT NOT NULL,
+    primary key (id_post),
+    foreign key (user_id) references user(id_user)
+);
+
+
+//pra criar o database
+CREATE DATABASE mbs;
+
+//pra setar o database
+use mbs;
+
+CREATE TABLE cliente (
+    id_cliente BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE reservas (
+    id_reserva BIGINT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id BIGINT NOT NULL,
+    quadra_id INT NOT NULL,
+    tempo_uso VARCHAR(255) NOT NULL,
+    quantidade_jogador INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES cliente (id_cliente)
+);
+
+
+INSERT INTO cliente (id_cliente, nome, email, senha)
+VALUES (1, 'Cliente Fixo', 'cliente.fixo@email.com', 'senha123');
+
